@@ -185,11 +185,6 @@ def roe_delta_compare(wind_code, df_on, df_roe, df_delta):
     plt.show()
 
 
-
-
-    a=1
-
-
 if __name__ == "__main__":
 
     df_return_slice = get_return_anl()
