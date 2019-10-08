@@ -15,12 +15,12 @@ The code is to test the effect that the financial defections bring about
 """
 
 raw_data_list = \
-    ['rcv', 'oth_rcv', 'notes_rcv', 'inventories', 'goodwill', 'depr_fa_coga_dpba', 'roe', 'equity', 'waa']
+    ['rcv', 'oth_rcv', 'notes_rcv', 'inventories', 'goodwill', 'depr_fa_coga_dpba', 'roe', 'equity', 'waa', 'assets']
 
 # raw_data_list = raw_data_dict.keys()
 
 
-def retrieve_raw_data(rw_data_list):
+def retrieve_raw_data(raw_data_list):
 
     """
     :param rw_data_list: the raw data id list
@@ -45,6 +45,20 @@ def retrieve_raw_data(rw_data_list):
     return df_raw_data_dict
 
 
+def factor_create(df_raw_dict):
+    """
+    :param df_raw_dict:  the raw data dict whose keys are the raw data id and whose
+    values are the dataframes for the raw data
+    :return: df_factor: the dataframe for the factor
+    """
+
+    df_dlt = df_raw_dict['rcv'] + df_raw_dict['oth_rcv'] + df_raw_dict['notes_rcv']
+
+    df_asset = df_data_dict['asset']
+    df_factor = df_dlt / df_asset
+    df_factor.replace(to_replace=[-np.inf, np.inf], value=np.nan, inplace=True)
+
+
 def delta_value(df_raw_dict):
     """
     :param df_raw_dict:  the raw data dict whose keys are the raw data id and whose
@@ -53,6 +67,8 @@ def delta_value(df_raw_dict):
     """
     df_dlt = - df_raw_dict['rcv'] - df_raw_dict['oth_rcv'] - df_raw_dict['notes_rcv'] \
              - df_raw_dict['inventories'] - df_raw_dict['goodwill'] + df_raw_dict['depr_fa_coga_dpba']
+
+    # df_dlt = df_raw_dict['rcv'] + df_raw_dict['oth_rcv'] + df_raw_dict['notes_rcv']
 
     df_equity = df_data_dict['equity']
     df_delta = df_dlt / df_equity
