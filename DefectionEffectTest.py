@@ -58,6 +58,8 @@ def factor_create(df_raw_dict):
     df_factor = df_dlt / df_asset
     df_factor.replace(to_replace=[-np.inf, np.inf], value=np.nan, inplace=True)
 
+    return df_factor
+
 
 def delta_value(df_raw_dict):
     """
