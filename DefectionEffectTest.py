@@ -20,7 +20,7 @@ raw_data_list = \
 # raw_data_list = raw_data_dict.keys()
 
 
-def retrieve_raw_data(raw_data_list):
+def retrieve_raw_data(rw_data_list):
 
     """
     :param rw_data_list: the raw data id list
